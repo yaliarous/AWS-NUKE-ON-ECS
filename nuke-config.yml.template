@@ -1,0 +1,40 @@
+regions:
+  - global
+  - eu-west-1
+
+blocklist:
+  - "999999999999" # example of production account
+
+accounts:
+  "{{ACCOUNT_ID}}":
+    filters:
+        IAMRole:
+          - "aws-nuke-role"
+        IAMRolePolicyAttachment:
+          - "aws-nuke-role -> AdministratorAccess"
+
+resource-types:
+  excludes:
+  # These Resources are deprecated
+  - MachineLearningMLModel
+  - MachineLearningBranchPrediction
+  - MachineLearningDataSource
+  - MachineLearningEvaluation
+  - OpsWorksCMServerState
+  - OpsWorksCMServer
+  - Cloud9Environment
+  - OpsWorksCMBackup
+  - ElasticTranscoderPreset
+  - RoboMakerRobotApplication
+  - RoboMakerSimulationApplication
+  - OpsWorksApp
+  - OpsWorksInstance
+  - MachineLearningBranchPrediction
+  - OpsWorksLayer
+  - OpsWorksUserProfile
+  - RoboMakerSimulationJob
+  - ElasticTranscoderPipeline
+
+bypass-alias-check-accounts:
+  - "{{ACCOUNT_ID}}"
+  - "999999999999" # example of production account
