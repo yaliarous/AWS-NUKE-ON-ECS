@@ -3,11 +3,13 @@
 
 Do you have an AWS lab/test account and worry about leaving resources running and getting a huge bill? This project helps you delete all resources in a target account on a schedule.
 
+**WARNING: aws-nuke irreversibly deletes resources. Use only on disposable/test accounts and verify configuration before running.**
+
 # Architecture
 
 An ECS task running aws-nuke is triggered every midnight in AWS account A and deletes resources in a target account (AWS account B).
 
-**WARNING: aws-nuke irreversibly deletes resources. Use only on disposable/test accounts and verify configuration before running.**
+![Architecture](architecture.png)
 
 # Quickstart
 
