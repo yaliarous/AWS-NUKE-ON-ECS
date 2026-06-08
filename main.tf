@@ -42,7 +42,24 @@ resource "aws_iam_role_policy" "cleanup_policy" {
       {
         Effect = "Allow"
         Action = [
-          "*"
+          "sts:AssumeRole"
+        ]
+        Resource = "arn:aws:iam::${var.TARGET_ACCOUNT_ID}:role/aws-nuke-role"
+      },
+      {
+        Effect = "Allow"
+        Action = [
+          "logs:CreateLogStream",
+          "logs:PutLogEvents"
+        ]
+        Resource = "arn:aws:logs:${var.aws_region}:${var.SOURCE_ACCOUNT_ID}:log-group:/ecs/resource-cleanup:*"
+      },
+      {
+        Effect = "Allow"
+        Action = [
+          "ecr:GetAuthorizationToken",
+          "ecr:BatchGetImage",
+          "ecr:GetDownloadUrlForLayer"
         ]
         Resource = "*"
       }
