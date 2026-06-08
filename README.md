@@ -38,6 +38,10 @@ terraform apply  -var='SOURCE_ACCOUNT_ID={account_a_id}' -var='TARGET_ACCOUNT_ID
 ```
 
 
+# Cost 
+
+With daily run of 10 minutes the estimated cost is ~$0.07/month
+
 # Failed tasks notification:
 
 To receive an email notification when AWS-NUKE fail, create AWS Eventbridge rule with the following event pattern and set SNS as target
@@ -68,5 +72,6 @@ aws ecs run-task \
   --network-configuration "awsvpcConfiguration={subnets=["$(terraform output -raw first_subnet_id)"
 ],securityGroups=["$(terraform output -raw security_group_id)"],assignPublicIp=ENABLED}" \
   --region eu-west-1 
+
 
 
