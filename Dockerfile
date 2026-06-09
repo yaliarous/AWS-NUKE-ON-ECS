@@ -1,6 +1,7 @@
 
 
 
+# renovate: datasource=docker depName=ghcr.io/ekristen/aws-nuke
 FROM ghcr.io/ekristen/aws-nuke:v3.65.0
 
 USER root
