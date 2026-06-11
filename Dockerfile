@@ -1,8 +1,7 @@
 
 
 
-# renovate: datasource=docker depName=ghcr.io/ekristen/aws-nuke
-FROM ghcr.io/ekristen/aws-nuke:v3.65.0
+FROM ghcr.io/ekristen/aws-nuke:v3.64.4
 
 USER root
 COPY ./nuke-config.yml.template /app/nuke-config.yml.template
