@@ -36,7 +36,7 @@ Create an IAM role aws-nuke-role in account B with a trust policy that allows as
 4) Deploy with Terraform
 ```
 terraform init
-terraform apply  -var='SOURCE_ACCOUNT_ID={account_a_id}' -var='TARGET_ACCOUNT_ID={account_b_id}' 
+terraform apply  -var=aws_profile='account-a' -var -var='SOURCE_ACCOUNT_ID={account_a_id}' -var='TARGET_ACCOUNT_ID={account_b_id}' 
 ```
 
 

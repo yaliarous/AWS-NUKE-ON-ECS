@@ -8,7 +8,7 @@ terraform {
 }
 
 provider "aws" {
-  profile = "account-a"
+  profile = var.aws_profile
   region  = var.aws_region
 }
 
@@ -57,11 +57,17 @@ resource "aws_iam_role_policy" "cleanup_policy" {
       {
         Effect = "Allow"
         Action = [
-          "ecr:GetAuthorizationToken",
+          "ecr:GetAuthorizationToken"
+        ]
+        Resource = "*"
+      },
+      {
+        Effect = "Allow"
+        Action = [
           "ecr:BatchGetImage",
           "ecr:GetDownloadUrlForLayer"
         ]
-        Resource = "*"
+        Resource = "arn:aws:ecr:${var.aws_region}:${var.SOURCE_ACCOUNT_ID}:repository/aws-nuke"
       }
     ]
   })
@@ -218,6 +224,12 @@ locals {
 
 
 ############### VARIABLES #############
+
+variable "aws_profile" {
+  description = "The AWS profile to use for deployment"
+  type        = string
+  default     = "default"
+}
 
 variable "aws_region" {
   description = "The AWS region to deploy resources in"
