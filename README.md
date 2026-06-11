@@ -1,7 +1,7 @@
 
 # Project purpose
 
-Do you have an AWS lab/test account and worry about leaving resources running and getting a huge bill? This project helps you delete all resources in a target account on a schedule.
+Do you have an AWS lab/test account and worry about leaving resources running and getting a huge bill? This project uses aws-nuke to help you delete all resources in a target account on a schedule.
 
 **WARNING: aws-nuke irreversibly deletes resources. Use only on disposable/test accounts and verify configuration before running.**
 
