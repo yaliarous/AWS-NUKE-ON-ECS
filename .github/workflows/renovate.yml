@@ -12,7 +12,7 @@ jobs:
       RENOVATE_REPOSITORIES: ${{ github.repository }}
     steps:
       - uses: actions/checkout@v6.0.3
-      - uses: renovatebot/github-action@v46.1.14
+      - uses: renovatebot/github-action@v46.1.15
         with:
           renovate-version: full
           token: ${{ secrets.RENOVATE_TOKEN }}
