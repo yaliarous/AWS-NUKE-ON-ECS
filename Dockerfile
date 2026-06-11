@@ -8,7 +8,7 @@ USER root
 COPY ./nuke-config.yml.template /app/nuke-config.yml.template
 COPY ./entrypoint.sh /app/entrypoint.sh
 
-RUN chmod +x /app/entrypoint.sh
+RUN chown -R aws-nuke:aws-nuke /app && chmod +x /app/entrypoint.sh
 
 USER aws-nuke
 ENTRYPOINT ["/app/entrypoint.sh"]

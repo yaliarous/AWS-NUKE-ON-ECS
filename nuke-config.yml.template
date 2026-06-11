@@ -1,6 +1,6 @@
 regions:
   - global
-  - eu-west-1
+  - "{{AWS_REGION}}"
 
 blocklist:
   - "999999999999" # example of production account

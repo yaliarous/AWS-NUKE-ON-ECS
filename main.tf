@@ -98,6 +98,10 @@ resource "aws_ecs_task_definition" "cleanup_task" {
         {
           name  = "TARGET_ACCOUNT_ID"
           value = var.TARGET_ACCOUNT_ID
+        },
+        {
+          name  = "AWS_REGION"
+          value = var.aws_region
         }
       ]
 
@@ -234,8 +238,7 @@ variable "aws_profile" {
 variable "aws_region" {
   description = "The AWS region to deploy resources in"
   type        = string
-  default     = "eu-west-1"
-}
+  }
 
 variable "SOURCE_ACCOUNT_ID" {
   description = "The AWS Account ID where the ECS task will run (Account A)"
@@ -267,4 +270,7 @@ output "security_group_id" {
 }
 output "first_subnet_id" {
   value = data.aws_subnets.default.ids[0]
+}
+output "aws_region" {
+  value = var.aws_region
 }

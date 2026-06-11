@@ -36,7 +36,7 @@ Create an IAM role aws-nuke-role in account B with a trust policy that allows as
 4) Deploy with Terraform
 ```
 terraform init
-terraform apply  -var=aws_profile='account-a' -var -var='SOURCE_ACCOUNT_ID={account_a_id}' -var='TARGET_ACCOUNT_ID={account_b_id}' 
+terraform apply  -var=aws_profile='account-a' -var='aws_region=eu-west-1' -var='SOURCE_ACCOUNT_ID={account_a_id}' -var='TARGET_ACCOUNT_ID={account_b_id}' 
 ```
 
 
@@ -73,7 +73,7 @@ aws ecs run-task \
   --launch-type FARGATE \
   --network-configuration "awsvpcConfiguration={subnets=["$(terraform output -raw first_subnet_id)"
 ],securityGroups=["$(terraform output -raw security_group_id)"],assignPublicIp=ENABLED}" \
-  --region eu-west-1 
+  --region "$(terraform output -raw aws_region)"
 
 
 
