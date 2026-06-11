@@ -8,8 +8,10 @@ on:
 jobs:
   renovate:
     runs-on: ubuntu-latest
+    env:
+      RENOVATE_REPOSITORIES: ${{ github.repository }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6.0.3
       - uses: renovatebot/github-action@v46.1.14
         with:
           renovate-version: full
