@@ -1,7 +1,7 @@
 
 # Project purpose
 
-Do you have an AWS lab/test account and worry about leaving resources running and getting a huge bill? This project uses aws-nuke to help you delete all resources in a target account on a schedule.
+Do you have AWS lab/test accounts and worry about leaving resources running and getting a huge bill? This project uses aws-nuke to help you delete all resources in target accounts on a schedule.
 
 **WARNING: aws-nuke irreversibly deletes resources. Use only on disposable/test accounts and verify configuration before running.**
 
@@ -29,14 +29,31 @@ aws ecr --profile account-a get-login-password --region eu-west-1 | docker login
 docker push {account_a_id}.dkr.ecr.eu-west-1.amazonaws.com/aws-nuke:latest
 ```
 
-3) Create an IAM role on the target account (account B):
+3) Create IAM roles on the target accounts (accounts B, C, etc.):
 
-Create an IAM role aws-nuke-role in account B with a trust policy that allows assume-role from account A. Then attach the AdministratorAccess policy to this role.
+Create an IAM role named `aws-nuke-role` in each target account with a trust policy that allows assume-role from account A. Then attach the AdministratorAccess policy to this role.
+
+Example trust policy for the role:
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "arn:aws:iam::{account_a_id}:root"
+      },
+      "Action": "sts:AssumeRole"
+    }
+  ]
+}
+```
 
 4) Deploy with Terraform
+
 ```
 terraform init
-terraform apply  -var=aws_profile='account-a' -var='aws_region=eu-west-1' -var='SOURCE_ACCOUNT_ID={account_a_id}' -var='TARGET_ACCOUNT_ID={account_b_id}' 
+terraform apply  -var=aws_profile='account-a' -var='aws_region=eu-west-1' -var='SOURCE_ACCOUNT_ID={account_a_id}' -var='TARGET_ACCOUNT_IDS=["{account_b_id}","{account_c_id}"]'
 ```
 
 

@@ -44,7 +44,9 @@ resource "aws_iam_role_policy" "cleanup_policy" {
         Action = [
           "sts:AssumeRole"
         ]
-        Resource = "arn:aws:iam::${var.TARGET_ACCOUNT_ID}:role/aws-nuke-role"
+        Resource = [
+          for account in var.TARGET_ACCOUNT_IDS : "arn:aws:iam::${account}:role/aws-nuke-role"
+        ]
       },
       {
         Effect = "Allow"
@@ -92,12 +94,11 @@ resource "aws_ecs_task_definition" "cleanup_task" {
     {
       name    = "cleanup-container"
       image   = local.nuke_image
-      command = ["nuke", "-c", "/app/nuke-config.yml", "--assume-role-arn", "arn:aws:iam::${var.TARGET_ACCOUNT_ID}:role/aws-nuke-role", "--no-prompt", "--no-dry-run", "--no-alias-check"]
 
       environment = [
         {
-          name  = "TARGET_ACCOUNT_ID"
-          value = var.TARGET_ACCOUNT_ID
+          name  = "TARGET_ACCOUNT_IDS"
+          value = join(",", var.TARGET_ACCOUNT_IDS)
         },
         {
           name  = "AWS_REGION"
@@ -245,9 +246,9 @@ variable "SOURCE_ACCOUNT_ID" {
   type        = string
 }
 
-variable "TARGET_ACCOUNT_ID" {
-  description = "The AWS Account ID to target for cleanup (Account B)"
-  type        = string
+variable "TARGET_ACCOUNT_IDS" {
+  description = "Comma-separated list of AWS Account IDs to target for cleanup (Account B, Account C, etc.)"
+  type        = list(string)
 }
 
 ############### DATA #############
