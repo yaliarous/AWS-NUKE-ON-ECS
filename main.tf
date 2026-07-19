@@ -147,7 +147,7 @@ resource "aws_security_group" "ecs_task_sg" {
 resource "aws_cloudwatch_event_rule" "midnight_trigger" {
   name                = "trigger-cleanup-task-midnight"
   description         = "Triggers resource cleanup task at midnight"
-  schedule_expression = "cron(0 0 * * ? *)" # Runs at midnight (UTC) every day
+  schedule_expression = "cron(0 1 * * ? *)" # Runs at 1:00 AM (UTC) every day
 }
 
 
