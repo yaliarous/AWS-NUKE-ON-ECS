@@ -66,6 +66,7 @@ To receive an email notification when AWS-NUKE fail, create AWS Eventbridge rule
 
 # Manual Invoke for testing
 
+```
 aws ecs run-task \
   --profile account-a \
   --cluster resource-cleanup-cluster \
@@ -74,6 +75,7 @@ aws ecs run-task \
   --network-configuration "awsvpcConfiguration={subnets=["$(terraform output -raw first_subnet_id)"
 ],securityGroups=["$(terraform output -raw security_group_id)"],assignPublicIp=ENABLED}" \
   --region "$(terraform output -raw aws_region)"
+```
 
 
 

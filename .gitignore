@@ -24,3 +24,4 @@ override.tf.json
 specific_run.note
 specific_run_one_account.note
 specific_run_two_accounts.note
+local_run.note
